@@ -1,0 +1,57 @@
+{% extends 'programme/base.html' %}
+
+{% block title %}Confirmation | Alignement Sacré{% endblock %}
+
+{% block content %}
+<section class="container inscription-section">
+    <!-- Indicateur d'étapes -->
+    <div class="steps-indicator">
+        <div class="step completed">
+            <span class="step-number"><i class="fa-solid fa-check"></i></span>
+            <span>Tes informations</span>
+        </div>
+        <div class="step-divider active"></div>
+        <div class="step completed">
+            <span class="step-number"><i class="fa-solid fa-check"></i></span>
+            <span>Paiement</span>
+        </div>
+        <div class="step-divider active"></div>
+        <div class="step active">
+            <span class="step-number"><i class="fa-solid fa-check"></i></span>
+            <span>Confirmation</span>
+        </div>
+    </div>
+
+    <div class="confirmation-card">
+        <div class="confirmation-icon">
+            <i class="fa-solid fa-seedling"></i>
+        </div>
+
+        <h1 class="section-title" style="font-size: 2rem;">Merci ! 🌿</h1>
+
+        <p class="confirmation-message">
+            Ta demande a bien été reçue.<br>
+            Tu recevras le <strong>lien du groupe sous 24h après validation</strong> de ton paiement.
+        </p>
+
+        <div class="confirmation-details">
+            <div class="confirmation-detail-item">
+                <i class="fa-solid fa-clock"></i>
+                <span>Délai de traitement : <strong>24 heures</strong></span>
+            </div>
+            <div class="confirmation-detail-item">
+                <i class="fa-solid fa-bell"></i>
+                <span>Tu seras contacté(e) par <strong>WhatsApp</strong> ou <strong>email</strong></span>
+            </div>
+            <div class="confirmation-detail-item">
+                <i class="fa-solid fa-heart"></i>
+                <span><strong>Ose ton Alignement, ose ta Destinée.</strong></span>
+            </div>
+        </div>
+
+        <a href="{% url 'accueil' %}" class="btn btn-outline-gold" style="margin-top: 2rem;">
+            <i class="fa-solid fa-house"></i> Retour à l'accueil
+        </a>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Alignement Sacré | Jardin de Farah{% endblock %}</title>
+    <meta name="description" content="Programme spirituel Alignement Sacré par Coach Farah. Retrouvez la paix intérieure, élevez votre énergie et clarifiez votre mission de vie.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="{% url 'accueil' %}" class="nav-logo">
+            <i class="fa-solid fa-leaf"></i> Jardin de Farah
+        </a>
+        
+        <div class="hamburger">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+        
+        <div class="nav-links">
+            <a href="{% url 'accueil' %}#accueil" class="{% if request.path == '/' %}active{% endif %}">Accueil</a>
+            <a href="{% url 'accueil' %}#programme" class="{% if request.path == '/' %}active{% endif %}">Le Programme</a>
+            <a href="{% url 'accueil' %}#ateliers" class="{% if request.path == '/' %}active{% endif %}">Les Ateliers</a>
+            <a href="{% url 'inscription' %}" class="btn btn-azure">S'INSCRIRE</a>
+        </div>
+    </nav>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <div class="footer-logo">
+            <i class="fa-solid fa-leaf"></i> Jardin de Farah
+        </div>
+        <div class="footer-contact">
+            <div class="footer-contact-item">
+                <i class="fa-solid fa-phone"></i>
+                <a href="tel:+2250711083824">+225 07 11 083 824</a>
+            </div>
+            <div class="footer-contact-item">
+                <i class="fa-solid fa-phone"></i>
+                <a href="tel:+2250714849094">+225 07 14 849 094</a>
+            </div>
+            <div class="footer-contact-item">
+                <i class="fa-solid fa-phone"></i>
+                <a href="tel:+2250716384807">+225 07 16 384 807</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; {% now "Y" %} Jardin de Farah. Tous droits réservés. Programme Alignement Sacré.
+        </div>
+    </footer>
+
+    <!-- Custom JS -->
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>

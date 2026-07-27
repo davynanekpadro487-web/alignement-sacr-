@@ -1,0 +1,113 @@
+{% extends 'programme/base.html' %}
+
+{% block title %}Dashboard Admin | Alignement Sacré{% endblock %}
+
+{% block content %}
+<section class="container" style="padding-top: 3rem; padding-bottom: 3rem;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+        <h1 class="section-title" style="margin-bottom: 0; font-size: 2rem;">
+            <i class="fa-solid fa-gauge-high"></i> Dashboard Inscriptions
+        </h1>
+        <a href="{% url 'accueil' %}" class="btn btn-outline-gold">
+            <i class="fa-solid fa-arrow-left"></i> Retour au site
+        </a>
+    </div>
+
+    {% if messages %}
+    <div style="margin-bottom: 2rem;">
+        {% for message in messages %}
+        <div style="padding: 1rem; border-radius: 8px; margin-bottom: 0.5rem; 
+            {% if message.tags == 'success' %}background-color: #d1fae5; color: #065f46; border: 1px solid #34d399;
+            {% elif message.tags == 'error' %}background-color: #fee2e2; color: #991b1b; border: 1px solid #f87171;
+            {% endif %}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <div style="background: white; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); overflow: hidden;">
+        <div style="overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse; text-align: left;">
+                <thead>
+                    <tr style="background-color: var(--color-emerald); color: white;">
+                        <th style="padding: 1rem 1.5rem;">Nom & Contacts</th>
+                        <th style="padding: 1rem 1.5rem;">Date</th>
+                        <th style="padding: 1rem 1.5rem; text-align: center;">Preuve de Paiement</th>
+                        <th style="padding: 1rem 1.5rem; text-align: center;">Statut</th>
+                        <th style="padding: 1rem 1.5rem; text-align: center;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ins in inscriptions %}
+                    <tr style="border-bottom: 1px solid #eee;">
+                        <td style="padding: 1rem 1.5rem;">
+                            <strong>{{ ins.nom_complet }}</strong><br>
+                            <span style="color: #666; font-size: 0.85rem;">
+                                <i class="fa-solid fa-phone" style="width: 16px;"></i> {{ ins.telephone }}<br>
+                                <i class="fa-solid fa-envelope" style="width: 16px;"></i> {{ ins.email }}
+                            </span>
+                        </td>
+                        <td style="padding: 1rem 1.5rem; color: #666; font-size: 0.9rem;">
+                            {{ ins.date_creation|date:"d/m/Y H:i" }}
+                        </td>
+                        <td style="padding: 1rem 1.5rem; text-align: center;">
+                            {% if ins.capture_paiement %}
+                                <a href="{{ ins.capture_paiement.url }}" target="_blank" 
+                                   style="display: inline-block; padding: 0.5rem 1rem; background-color: #f3f4f6; color: #374151; border-radius: 6px; text-decoration: none; font-size: 0.85rem; border: 1px solid #e5e7eb;">
+                                    <i class="fa-solid fa-file-invoice"></i> Voir le fichier
+                                </a>
+                            {% else %}
+                                <span style="color: #9ca3af; font-size: 0.85rem;">Aucun fichier</span>
+                            {% endif %}
+                        </td>
+                        <td style="padding: 1rem 1.5rem; text-align: center;">
+                            {% if ins.statut == 'en_attente' %}
+                                <span style="display: inline-block; padding: 0.25rem 0.75rem; background-color: #fef3c7; color: #92400e; border-radius: 9999px; font-size: 0.8rem; font-weight: 600;">
+                                    En attente
+                                </span>
+                            {% elif ins.statut == 'validee' %}
+                                <span style="display: inline-block; padding: 0.25rem 0.75rem; background-color: #d1fae5; color: #065f46; border-radius: 9999px; font-size: 0.8rem; font-weight: 600;">
+                                    Validée
+                                </span>
+                            {% elif ins.statut == 'refusee' %}
+                                <span style="display: inline-block; padding: 0.25rem 0.75rem; background-color: #fee2e2; color: #991b1b; border-radius: 9999px; font-size: 0.8rem; font-weight: 600;">
+                                    Refusée
+                                </span>
+                            {% endif %}
+                        </td>
+                        <td style="padding: 1rem 1.5rem; text-align: center;">
+                            {% if ins.statut == 'en_attente' %}
+                            <div style="display: flex; gap: 0.5rem; justify-content: center;">
+                                <form action="{% url 'dashboard_action' ins.id 'valider' %}" method="POST" style="display: inline;">
+                                    {% csrf_token %}
+                                    <button type="submit" title="Valider" style="background-color: #10b981; color: white; border: none; width: 32px; height: 32px; border-radius: 6px; cursor: pointer;">
+                                        <i class="fa-solid fa-check"></i>
+                                    </button>
+                                </form>
+                                <form action="{% url 'dashboard_action' ins.id 'refuser' %}" method="POST" style="display: inline;">
+                                    {% csrf_token %}
+                                    <button type="submit" title="Refuser" style="background-color: #ef4444; color: white; border: none; width: 32px; height: 32px; border-radius: 6px; cursor: pointer;">
+                                        <i class="fa-solid fa-xmark"></i>
+                                    </button>
+                                </form>
+                            </div>
+                            {% else %}
+                                <span style="color: #9ca3af; font-size: 0.85rem;">Traité</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" style="padding: 3rem; text-align: center; color: #6b7280;">
+                            <i class="fa-solid fa-folder-open" style="font-size: 2rem; margin-bottom: 1rem; color: #d1d5db;"></i>
+                            <br>Aucune inscription pour le moment.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+{% endblock %}

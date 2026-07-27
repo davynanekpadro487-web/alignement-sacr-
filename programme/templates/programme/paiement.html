@@ -1,0 +1,158 @@
+{% extends 'programme/base.html' %}
+{% load static %}
+
+{% block title %}Paiement | Alignement Sacré{% endblock %}
+
+{% block content %}
+<section class="container inscription-section">
+    <!-- Indicateur d'étapes -->
+    <div class="steps-indicator">
+        <div class="step completed">
+            <span class="step-number"><i class="fa-solid fa-check"></i></span>
+            <span>Tes informations</span>
+        </div>
+        <div class="step-divider active"></div>
+        <div class="step active">
+            <span class="step-number">2</span>
+            <span>Paiement</span>
+        </div>
+        <div class="step-divider"></div>
+        <div class="step">
+            <span class="step-number">3</span>
+            <span>Confirmation</span>
+        </div>
+    </div>
+
+    <div class="payment-card">
+        <h1 class="section-title" style="font-size: 2rem; margin-bottom: 0.5rem;">Finaliser l'inscription</h1>
+        <p class="text-center text-navy" style="margin-bottom: 2rem;">Montant total : <strong>180 000 FCFA</strong></p>
+
+        <!-- Instructions -->
+        <div class="payment-instructions" id="payment-instructions-block" style="margin-bottom: 2rem;">
+            <p>
+                <strong>{{ nom }}</strong>, envoyez <strong>180 000 FCFA</strong> au numéro ci-dessous :
+            </p>
+            <p class="payment-phone text-center" style="font-size: 1.8rem; margin: 1rem 0; color: var(--navy-deep);">
+                <i class="fa-solid fa-phone" style="font-size: 1.2rem; vertical-align: middle; margin-right: 5px;"></i> <strong>07 05 16 62 77</strong>
+            </p>
+            <p>
+                Puis téléversez ci-dessous la <strong>capture d'écran</strong> de la confirmation de paiement.
+            </p>
+        </div>
+
+        <!-- Formulaire d'upload -->
+        <form id="paiement-form" action="{% url 'paiement' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            {% if form.errors %}
+            <div class="form-errors-box">
+                {% for field in form %}
+                    {% for error in field.errors %}
+                    <p><i class="fa-solid fa-circle-exclamation"></i> {{ error }}</p>
+                    {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                <p><i class="fa-solid fa-circle-exclamation"></i> {{ error }}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <h2 style="font-size: 1.1rem; margin-bottom: 1rem; margin-top: 1rem; color: var(--navy-deep);">2. Envoyez votre preuve de paiement</h2>
+            <label for="capture_paiement" class="upload-area new-upload-area" id="upload-area">
+                <div class="upload-content-default" id="upload-content-default">
+                    <div class="upload-icon-small">
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                    </div>
+                    <p class="upload-text" style="font-weight: 500; color: var(--navy-mid);">Cliquez ici ou glissez votre fichier</p>
+                </div>
+                
+                <div class="upload-content-preview" id="upload-content-preview" style="display: none;">
+                    <img id="file-thumbnail" src="" alt="Aperçu" style="display: none; max-width: 100px; max-height: 100px; border-radius: 8px; margin-bottom: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                    <i id="file-icon" class="fa-solid fa-file-pdf" style="display: none; font-size: 2.5rem; color: var(--azure); margin-bottom: 10px;"></i>
+                    <p id="file-name-display" style="font-weight: 600; margin-bottom: 10px; color: var(--navy-deep); word-break: break-all; text-align: center;"></p>
+                    <span class="btn-change-file">Changer de fichier</span>
+                </div>
+                
+                <!-- Masquer l'input original -->
+                <div style="display: none;">
+                    {{ form.capture_paiement }}
+                </div>
+            </label>
+            <p class="upload-hint-outside">JPG, PNG ou PDF — 5 Mo maximum</p>
+
+            <div class="form-submit" style="margin-top: 2rem;">
+                <button type="submit" class="btn btn-azure btn-full" id="submit-btn" disabled>
+                    <i class="fa-solid fa-paper-plane"></i> Envoyer ma preuve de paiement
+                </button>
+            </div>
+        </form>
+
+        <p class="form-security-note">
+            <i class="fa-solid fa-shield-halved"></i> Ton fichier est transmis de manière sécurisée et ne sera utilisé que pour la vérification de ton paiement.
+        </p>
+    </div>
+</section>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const fileInput = document.getElementById('capture_paiement');
+    const submitBtn = document.getElementById('submit-btn');
+    
+    const defaultContent = document.getElementById('upload-content-default');
+    const previewContent = document.getElementById('upload-content-preview');
+    const fileNameDisplay = document.getElementById('file-name-display');
+    const fileThumbnail = document.getElementById('file-thumbnail');
+    const fileIcon = document.getElementById('file-icon');
+
+    function checkFormState() {
+        if (fileInput.files && fileInput.files.length > 0) {
+            submitBtn.disabled = false;
+        } else {
+            submitBtn.disabled = true;
+        }
+    }
+
+    fileInput.addEventListener('change', function() {
+        if (this.files && this.files[0]) {
+            const file = this.files[0];
+            fileNameDisplay.textContent = file.name;
+            
+            if (file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    fileThumbnail.src = e.target.result;
+                    fileThumbnail.style.display = 'inline-block';
+                    fileIcon.style.display = 'none';
+                }
+                reader.readAsDataURL(file);
+            } else {
+                fileThumbnail.style.display = 'none';
+                fileIcon.style.display = 'inline-block';
+            }
+            
+            defaultContent.style.display = 'none';
+            previewContent.style.display = 'flex';
+        } else {
+            defaultContent.style.display = 'flex';
+            previewContent.style.display = 'none';
+        }
+        checkFormState();
+    });
+
+    const uploadArea = document.getElementById('upload-area');
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        uploadArea.addEventListener(eventName, preventDefaults, false);
+    });
+    function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+    ['dragenter', 'dragover'].forEach(eventName => {
+        uploadArea.addEventListener(eventName, () => uploadArea.classList.add('drag-over'), false);
+    });
+    ['dragleave', 'drop'].forEach(eventName => {
+        uploadArea.addEventListener(eventName, () => uploadArea.classList.remove('drag-over'), false);
+    });
+});
+</script>
+{% endblock %}

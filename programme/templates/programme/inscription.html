@@ -1,0 +1,85 @@
+{% extends 'programme/base.html' %}
+
+{% block title %}Inscription | Alignement Sacré{% endblock %}
+
+{% block content %}
+<section class="container inscription-section">
+    <!-- Indicateur d'étapes -->
+    <div class="steps-indicator">
+        <div class="step active">
+            <span class="step-number">1</span>
+            <span>Tes informations</span>
+        </div>
+        <div class="step-divider"></div>
+        <div class="step">
+            <span class="step-number">2</span>
+            <span>Paiement</span>
+        </div>
+        <div class="step-divider"></div>
+        <div class="step">
+            <span class="step-number">3</span>
+            <span>Confirmation</span>
+        </div>
+    </div>
+
+    <div class="text-center">
+        <h1 class="section-title">Commence ton voyage</h1>
+        <p class="section-subtitle">Remplis ce formulaire pour réserver ta place au Programme Alignement Sacré.</p>
+    </div>
+
+    <div class="form-container">
+        <form id="inscription-form" action="{% url 'inscription' %}" method="POST" novalidate>
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+            <div class="form-errors-box">
+                {% for error in form.non_field_errors %}
+                <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <div class="form-group">
+                <label for="nom_complet" class="form-label">
+                    <i class="fa-solid fa-user"></i> Nom complet
+                </label>
+                {{ form.nom_complet }}
+                {% if form.nom_complet.errors %}
+                <small class="form-error">{{ form.nom_complet.errors.0 }}</small>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="telephone" class="form-label">
+                    <i class="fa-solid fa-phone"></i> Numéro de téléphone
+                </label>
+                {{ form.telephone }}
+                {% if form.telephone.errors %}
+                <small class="form-error">{{ form.telephone.errors.0 }}</small>
+                {% endif %}
+                <small class="form-hint">Format ivoirien : 10 chiffres (ex : 0712345678)</small>
+            </div>
+
+            <div class="form-group">
+                <label for="email" class="form-label">
+                    <i class="fa-solid fa-envelope"></i> Adresse email
+                </label>
+                {{ form.email }}
+                {% if form.email.errors %}
+                <small class="form-error">{{ form.email.errors.0 }}</small>
+                {% endif %}
+            </div>
+
+            <div class="form-submit">
+                <button type="submit" class="btn btn-gold btn-full">
+                    Continuer vers le paiement <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+
+            <p class="form-security-note">
+                <i class="fa-solid fa-lock"></i> Tes informations sont sécurisées et strictement confidentielles.
+            </p>
+        </form>
+    </div>
+</section>
+{% endblock %}

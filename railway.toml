@@ -1,0 +1,7 @@
+[build]
+builder = "NIXPACKS"
+buildCommand = "python manage.py collectstatic --noinput"
+
+[deploy]
+startCommand = "python manage.py migrate --noinput && gunicorn alignement_sacre.wsgi"
+restartPolicyType = "ON_FAILURE"

@@ -1,0 +1,28 @@
+{% extends 'programme/base.html' %}
+
+{% block title %}Merci | Alignement Sacré{% endblock %}
+
+{% block content %}
+<section class="container text-center" style="min-height: 60vh; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+    <div style="max-width: 600px; background: white; padding: 3rem; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); width: 100%;">
+        <i class="fa-solid fa-seedling text-emerald" style="font-size: 4rem; margin-bottom: 1.5rem;"></i>
+        
+        <h1 class="section-title">Merci pour ton inscription 🌿</h1>
+        
+        <p style="font-size: 1.2rem; margin-bottom: 2rem; color: var(--color-text-light);">
+            Ton nouveau chapitre commence maintenant.<br>
+            <strong>Ose ton Alignement, ose ta Destinée.</strong>
+        </p>
+        
+        <div style="margin-bottom: 2rem; padding: 1rem; background-color: var(--color-cream); border-radius: 4px;">
+            <p><strong>Inscription enregistrée pour :</strong><br>{{ nom }}<br><em>{{ type_inscr }}</em></p>
+        </div>
+
+        <p style="margin-bottom: 1.5rem; font-size: 0.95rem;">Pour finaliser et valider ta place, clique sur le bouton ci-dessous pour nous envoyer un message sur WhatsApp.</p>
+
+        <a href="#" id="btn-whatsapp" data-nom="{{ nom }}" data-type="{{ type_inscr }}" class="btn" style="background-color: #25D366; color: white; font-size: 1.1rem; padding: 15px 30px; display: inline-flex; align-items: center; gap: 10px; width: 100%; justify-content: center;">
+            <i class="fa-brands fa-whatsapp" style="font-size: 1.3rem;"></i> Continuer sur WhatsApp
+        </a>
+    </div>
+</section>
+{% endblock %}
