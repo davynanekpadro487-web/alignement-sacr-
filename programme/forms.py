@@ -1,5 +1,5 @@
 import re
-import magic
+import filetype
 from django import forms
 from .models import Inscription
 
@@ -93,7 +93,8 @@ class PaiementForm(forms.Form):
         file_header = fichier.read(2048)
         fichier.seek(0)  # Remettre le curseur au début pour Django
         
-        mime_type = magic.from_buffer(file_header, mime=True)
+        kind = filetype.guess(file_header)
+        mime_type = kind.mime if kind else 'application/octet-stream'
         
         if mime_type not in content_types_autorises:
             raise forms.ValidationError(
