@@ -5,12 +5,6 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, JsonResponse
 from django.utils import timezone
 from django_ratelimit.decorators import ratelimit
-import os
-import uuid
-import requests
-import json
-import hmac
-import hashlib
 
 from .models import Inscription
 from .forms import InscriptionForm, PaiementForm
