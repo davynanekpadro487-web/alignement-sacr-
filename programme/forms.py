@@ -44,9 +44,10 @@ class InscriptionForm(forms.Form):
     def clean_telephone(self):
         telephone = self.cleaned_data['telephone'].strip()
         telephone = re.sub(r'\s+', '', telephone)
-        if not re.match(r'^\d{10}$', telephone):
+        # Allow optional '+' and 8 to 15 digits
+        if not re.match(r'^\+?\d{8,15}$', telephone):
             raise forms.ValidationError(
-                "Le numéro doit contenir exactement 10 chiffres (format ivoirien)."
+                "Le numéro doit contenir un indicatif valide et entre 8 et 15 chiffres."
             )
         return telephone
 
@@ -54,7 +55,7 @@ class InscriptionForm(forms.Form):
 class PaiementForm(forms.Form):
     """Étape 2 : upload de la preuve de paiement."""
 
-    EXTENSIONS_AUTORISEES = ['jpg', 'jpeg', 'png', 'pdf']
+    EXTENSIONS_AUTORISEES = ['jpg', 'jpeg', 'png']
     TAILLE_MAX = 5 * 1024 * 1024  # 5 Mo
 
     capture_paiement = forms.FileField(
@@ -80,12 +81,12 @@ class PaiementForm(forms.Form):
         extension = nom.rsplit('.', 1)[-1] if '.' in nom else ''
         if extension not in self.EXTENSIONS_AUTORISEES:
             raise forms.ValidationError(
-                "Format d'extension non autorisé. Seuls les fichiers JPG, PNG et PDF sont acceptés."
+                "Format d'extension non autorisé. Seuls les fichiers JPG et PNG sont acceptés."
             )
 
         # Vérification de sécurité du vrai type MIME (Magic bytes)
         content_types_autorises = [
-            'image/jpeg', 'image/png', 'application/pdf',
+            'image/jpeg', 'image/png',
         ]
         
         # Lire les premiers octets pour déterminer le vrai type

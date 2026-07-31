@@ -12,4 +12,5 @@ urlpatterns = [
     # Dashboard Admin
     path('dashboard/', views.dashboard, name='dashboard'),
     path('dashboard/action/<int:inscription_id>/<str:action>/', views.dashboard_action, name='dashboard_action'),
+    path('dashboard/certificat/<int:inscription_id>/', views.telecharger_certificat_manuel, name='telecharger_certificat_manuel'),
 ]

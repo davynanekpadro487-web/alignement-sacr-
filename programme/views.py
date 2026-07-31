@@ -87,17 +87,7 @@ def dashboard_action(request, inscription_id, action):
             inscription_obj.statut = 'validee'
             inscription_obj.save()
             
-            # Envoi d'email avec le lien WhatsApp
-            try:
-                from django.core.mail import EmailMessage
-                EmailMessage(
-                    subject="Bienvenue dans le Programme Alignement Sacré",
-                    body=f"Bonjour {inscription_obj.nom_complet},\n\nFélicitations pour ton inscription !\n\nTon paiement a été validé avec succès. Tu peux dès à présent rejoindre notre groupe privé WhatsApp en cliquant sur ce lien : https://chat.whatsapp.com/DSdV75oTwlBBTLOePGpGpU\n\nÀ très vite pour le début du programme,\nL'équipe Jardin de Farah",
-                    to=[inscription_obj.email]
-                ).send(fail_silently=True)
-            except Exception:
-                pass
-                
+            # L'envoi d'email est maintenant géré dans la méthode save() du modèle Inscription
             messages.success(request, f"L'inscription de {inscription_obj.nom_complet} a été validée et l'email a été envoyé.")
         elif action == 'refuser':
             inscription_obj.statut = 'refusee'
@@ -105,3 +95,17 @@ def dashboard_action(request, inscription_id, action):
             messages.success(request, f"L'inscription de {inscription_obj.nom_complet} a été refusée.")
     
     return redirect('dashboard')
+
+from programme.management.commands.envoyer_certificats import Command as CertCommand
+
+@staff_member_required
+def telecharger_certificat_manuel(request, inscription_id):
+    """Génère le certificat à la volée et le renvoie en PDF pour téléchargement ou prévisualisation."""
+    inscription_obj = get_object_or_404(Inscription, id=inscription_id)
+    cmd = CertCommand()
+    pdf_bytes = cmd.generate_certificate(inscription_obj)
+    
+    response = HttpResponse(pdf_bytes, content_type='application/pdf')
+    filename = f'Certificat_{inscription_obj.nom_complet.replace(" ", "_")}.pdf'
+    response['Content-Disposition'] = f'inline; filename="{filename}"'
+    return response

@@ -12,19 +12,14 @@ SECRET_KEY = os.environ.get(
     'dev-only-insecure-key-change-in-production-!x9k2m$'
 )
 
-# SECURITY: En production (Railway), définir DEBUG=False via variable d'environnement.
-# Par défaut True pour le développement local.
-DEBUG = os.environ.get('DEBUG', 'True') == 'True'
+# SECURITY: En production (Railway/Render), définir DEBUG=False via variable d'environnement.
+# Par défaut False pour éviter toute fuite en production.
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
-# Hosts autorisés — restreint aux domaines connus
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1,127.0.0.2').split(',')
-RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
-if RENDER_EXTERNAL_HOSTNAME:
-    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+# Hosts autorisés — restreint strictement aux domaines de production et locaux
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'alignement-sacr.onrender.com,localhost,127.0.0.1,127.0.0.2').split(',')
 
-CSRF_TRUSTED_ORIGINS = ['https://*.up.railway.app', 'https://*.onrender.com', 'https://alignement-sacr.onrender.com']
-if RENDER_EXTERNAL_HOSTNAME:
-    CSRF_TRUSTED_ORIGINS.append(f'https://{RENDER_EXTERNAL_HOSTNAME}')
+CSRF_TRUSTED_ORIGINS = ['https://alignement-sacr.onrender.com']
 
 # Application definition
 INSTALLED_APPS = [
@@ -131,3 +126,13 @@ if not DEBUG:
     SECURE_HSTS_SECONDS = 31536000  # 1 an
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_HSTS_PRELOAD = True
+
+# ─── Configuration Email SMTP (Gmail) ───
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL')
+

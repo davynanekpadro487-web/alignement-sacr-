@@ -16,12 +16,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=23">
 </head>
 <body>
     <nav class="navbar">
         <a href="{% url 'accueil' %}" class="nav-logo">
-            <i class="fa-solid fa-leaf"></i> Jardin de Farah
+            Jardin de Farah
         </a>
         
         <div class="hamburger">
@@ -31,7 +31,6 @@
         <div class="nav-links">
             <a href="{% url 'accueil' %}#accueil" class="{% if request.path == '/' %}active{% endif %}">Accueil</a>
             <a href="{% url 'accueil' %}#programme" class="{% if request.path == '/' %}active{% endif %}">Le Programme</a>
-            <a href="{% url 'accueil' %}#ateliers" class="{% if request.path == '/' %}active{% endif %}">Les Ateliers</a>
             <a href="{% url 'inscription' %}" class="btn btn-azure">S'INSCRIRE</a>
         </div>
     </nav>
@@ -41,26 +40,9 @@
         {% endblock %}
     </main>
 
-    <footer>
-        <div class="footer-logo">
-            <i class="fa-solid fa-leaf"></i> Jardin de Farah
-        </div>
-        <div class="footer-contact">
-            <div class="footer-contact-item">
-                <i class="fa-solid fa-phone"></i>
-                <a href="tel:+2250711083824">+225 07 11 083 824</a>
-            </div>
-            <div class="footer-contact-item">
-                <i class="fa-solid fa-phone"></i>
-                <a href="tel:+2250714849094">+225 07 14 849 094</a>
-            </div>
-            <div class="footer-contact-item">
-                <i class="fa-solid fa-phone"></i>
-                <a href="tel:+2250716384807">+225 07 16 384 807</a>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            &copy; {% now "Y" %} Jardin de Farah. Tous droits réservés. Programme Alignement Sacré.
+    <footer style="padding: 1.5rem 0; background-color: var(--navy-deep);">
+        <div class="footer-bottom" style="text-align: center; color: rgba(255,255,255,0.6); font-size: 0.9rem;">
+            &copy; 2026 Jardin de Farah. Tous droits réservés. By Davyna
         </div>
     </footer>
 

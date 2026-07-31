@@ -4,6 +4,171 @@
 {% block title %}Paiement | Alignement Sacré{% endblock %}
 
 {% block content %}
+<style>
+    .steps-banner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #f8fafc;
+        border: 1px solid rgba(22, 75, 79, 0.1);
+        border-radius: 12px;
+        padding: 15px 20px;
+        margin-bottom: 2rem;
+        gap: 15px;
+    }
+    .step-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        flex: 1;
+    }
+    .step-badge {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background-color: #164b4f;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.85rem;
+        font-weight: bold;
+        margin-bottom: 8px;
+    }
+    .step-text {
+        font-size: 0.85rem;
+        color: #64748b;
+        font-weight: 500;
+        line-height: 1.3;
+    }
+
+    .payment-method-card {
+        flex: 1;
+        min-width: 250px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        background-color: #ffffff;
+        padding: 15px;
+        border-radius: 16px;
+        border: 1px solid rgba(22, 75, 79, 0.1);
+        border-left: 3px solid #c9a227;
+        box-shadow: 0 4px 15px rgba(22, 75, 79, 0.03);
+        transition: all 0.3s ease;
+        position: relative;
+    }
+    .payment-method-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 25px rgba(22, 75, 79, 0.12);
+        border-color: rgba(22, 75, 79, 0.2);
+        border-left: 3px solid #c9a227;
+    }
+    .copy-btn {
+        background: #164b4f;
+        border: none;
+        color: #c9a227;
+        border-radius: 6px;
+        padding: 8px 12px;
+        font-size: 0.95rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: 10px;
+        vertical-align: middle;
+    }
+    .copy-btn:hover {
+        background: #0f3a3d;
+        color: #dfb638;
+        transform: scale(1.05);
+    }
+    .copy-feedback {
+        font-size: 0.85rem;
+        color: #10b981;
+        margin-left: 8px;
+        opacity: 0;
+        transition: opacity 0.2s ease;
+        font-weight: 600;
+        vertical-align: middle;
+    }
+    .copy-feedback.show {
+        opacity: 1;
+    }
+    .file-error-msg {
+        display: none;
+        background-color: #fef2f2;
+        border-left: 3px solid #ef4444;
+        color: #b91c1c;
+        padding: 12px 15px;
+        border-radius: 6px;
+        font-size: 0.95rem;
+        margin-top: 15px;
+        font-weight: 500;
+        text-align: left;
+    }
+    .file-error-msg.show {
+        display: block;
+    }
+
+    .new-upload-area {
+        border: 2px dashed #164b4f !important;
+        background-color: rgba(22, 75, 79, 0.02) !important;
+    }
+    .new-upload-area:hover {
+        background-color: rgba(22, 75, 79, 0.05) !important;
+    }
+
+    .btn-gold {
+        background-color: #c9a227 !important;
+        color: #164b4f !important;
+        font-weight: 700 !important;
+        border: none !important;
+    }
+    .btn-gold:hover {
+        background-color: #dfb638 !important;
+        transform: translateY(-2px);
+    }
+
+    @media (max-width: 480px) {
+        .steps-banner {
+            flex-direction: row;
+            gap: 10px;
+            padding: 15px 10px;
+        }
+        .step-text {
+            font-size: 0.75rem;
+        }
+        .payment-method-card {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 15px;
+            gap: 15px;
+            border-left: 1px solid rgba(22, 75, 79, 0.1);
+            border-top: 3px solid #c9a227;
+        }
+        .payment-method-card:hover {
+            border-left: 1px solid rgba(22, 75, 79, 0.2);
+            border-top: 3px solid #c9a227;
+        }
+        .payment-method-card > div:first-child {
+            flex-direction: column;
+            margin-right: 0 !important;
+        }
+        .payment-method-card img {
+            margin-right: 0 !important;
+            margin-bottom: 10px;
+        }
+        .payment-method-card > div:last-child {
+            margin-left: 0 !important;
+            width: 100%;
+            justify-content: center;
+        }
+    }
+</style>
 <section class="container inscription-section">
     <!-- Indicateur d'étapes -->
     <div class="steps-indicator">
@@ -25,23 +190,72 @@
 
     <div class="payment-card">
         <h1 class="section-title" style="font-size: 2rem; margin-bottom: 0.5rem;">Finaliser l'inscription</h1>
-        <p class="text-center text-navy" style="margin-bottom: 2rem;">Montant total : <strong>180 000 FCFA</strong></p>
+        <p class="text-center text-navy" style="margin-bottom: 2rem;">Montant total : <strong>175 000 FCFA</strong></p>
 
         <!-- Instructions -->
         <div class="payment-instructions" id="payment-instructions-block" style="margin-bottom: 2rem;">
+            
+            <!-- Banner 3 étapes -->
+            <div class="steps-banner">
+                <div class="step-item">
+                    <div class="step-badge">1</div>
+                    <div class="step-text">Copiez<br>le numéro</div>
+                </div>
+                <div class="step-item">
+                    <div class="step-badge">2</div>
+                    <div class="step-text">Payez sur<br>Wave ou OM</div>
+                </div>
+                <div class="step-item">
+                    <div class="step-badge">3</div>
+                    <div class="step-text">Envoyez<br>la capture</div>
+                </div>
+            </div>
+
             <p>
-                <strong>{{ nom }}</strong>, envoyez <strong>180 000 FCFA</strong> au numéro ci-dessous :
+                <strong>{{ nom }}</strong>, envoyez <strong>175 000 FCFA</strong> sur l'un de ces moyens de paiement :
             </p>
-            <p class="payment-phone text-center" style="font-size: 1.8rem; margin: 1rem 0; color: var(--navy-deep);">
-                <i class="fa-solid fa-phone" style="font-size: 1.2rem; vertical-align: middle; margin-right: 5px;"></i> <strong>07 05 16 62 77</strong>
-            </p>
-            <p>
+            
+            <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; margin: 1.5rem 0;">
+                <!-- Wave -->
+                <div class="payment-method-card">
+                    <div style="display: flex; align-items: center;">
+                        <img src="{% static 'images/wave.jpeg' %}" alt="Wave" style="height: 55px; width: auto; max-width: 100px; object-fit: contain; object-position: left center; border-radius: 8px; margin-right: 15px; mix-blend-mode: multiply;">
+                        <div style="font-weight: 700; font-size: 1.15rem; color: #c9a227;">
+                            +225 07 05 16 62 77
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; align-items: center; margin-left: auto;">
+                        <button type="button" class="copy-btn" onclick="copierNumero('+2250705166277', this)" title="Copier le numéro">
+                            <i class="fa-solid fa-clipboard"></i> <span class="copy-text" style="margin-left: 6px;">Copier</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Orange Money -->
+                <div class="payment-method-card">
+                    <div style="display: flex; align-items: center;">
+                        <img src="{% static 'images/orange.png' %}" alt="Orange Money" style="height: 55px; width: auto; max-width: 100px; object-fit: contain; object-position: left center; border-radius: 8px; margin-right: 15px; mix-blend-mode: multiply;">
+                        <div style="font-weight: 700; font-size: 1.15rem; color: #c9a227;">
+                            +225 07 11 083 824
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; align-items: center; margin-left: auto;">
+                        <button type="button" class="copy-btn" onclick="copierNumero('+2250711083824', this)" title="Copier le numéro">
+                            <i class="fa-solid fa-clipboard"></i> <span class="copy-text" style="margin-left: 6px;">Copier</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <p style="margin-top: 1rem;">
                 Puis téléversez ci-dessous la <strong>capture d'écran</strong> de la confirmation de paiement.
             </p>
         </div>
 
         <!-- Formulaire d'upload -->
-        <form id="paiement-form" action="{% url 'paiement' %}" method="POST" enctype="multipart/form-data">
+        <form id="paiement-form" action="{% url 'paiement' %}" method="POST" enctype="multipart/form-data" novalidate>
             {% csrf_token %}
 
             {% if form.errors %}
@@ -61,14 +275,15 @@
             <label for="capture_paiement" class="upload-area new-upload-area" id="upload-area">
                 <div class="upload-content-default" id="upload-content-default">
                     <div class="upload-icon-small">
-                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                        <i class="fa-solid fa-cloud-arrow-up" style="color: #164b4f; font-size: 2.5rem; margin-bottom: 10px;"></i>
                     </div>
-                    <p class="upload-text" style="font-weight: 500; color: var(--navy-mid);">Cliquez ici ou glissez votre fichier</p>
+                    <p class="upload-text" style="font-weight: 600; color: #164b4f; font-size: 1.1rem; margin-bottom: 5px;">Téléversez la capture d'écran du paiement</p>
+                    <p class="upload-text" style="font-size: 0.9rem; color: var(--navy-mid);">Cliquez ici ou glissez votre fichier</p>
                 </div>
                 
                 <div class="upload-content-preview" id="upload-content-preview" style="display: none;">
                     <img id="file-thumbnail" src="" alt="Aperçu" style="display: none; max-width: 100px; max-height: 100px; border-radius: 8px; margin-bottom: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-                    <i id="file-icon" class="fa-solid fa-file-pdf" style="display: none; font-size: 2.5rem; color: var(--azure); margin-bottom: 10px;"></i>
+                    <i id="file-icon" class="fa-solid fa-file-pdf" style="display: none; font-size: 2.5rem; color: #164b4f; margin-bottom: 10px;"></i>
                     <p id="file-name-display" style="font-weight: 600; margin-bottom: 10px; color: var(--navy-deep); word-break: break-all; text-align: center;"></p>
                     <span class="btn-change-file">Changer de fichier</span>
                 </div>
@@ -79,10 +294,11 @@
                 </div>
             </label>
             <p class="upload-hint-outside">JPG, PNG ou PDF — 5 Mo maximum</p>
+            <div id="file-error-msg" class="file-error-msg"><i class="fa-solid fa-circle-exclamation"></i> Merci d'ajouter une capture d'écran de votre paiement avant de continuer.</div>
 
-            <div class="form-submit" style="margin-top: 2rem;">
-                <button type="submit" class="btn btn-azure btn-full" id="submit-btn" disabled>
-                    <i class="fa-solid fa-paper-plane"></i> Envoyer ma preuve de paiement
+            <div class="form-submit" style="margin-top: 1.5rem;">
+                <button type="submit" class="btn btn-gold btn-full" id="submit-btn" style="border-radius: 12px; padding: 15px;">
+                    <i class="fa-solid fa-paper-plane"></i> Envoyer la preuve de paiement
                 </button>
             </div>
         </form>
@@ -94,9 +310,31 @@
 </section>
 
 <script>
+window.copierNumero = function(numero, btn) {
+    navigator.clipboard.writeText(numero).then(() => {
+        const icon = btn.querySelector('i');
+        const textSpan = btn.querySelector('.copy-text');
+        const originalText = textSpan.textContent;
+        
+        icon.classList.remove('fa-clipboard', 'fa-regular', 'fa-copy');
+        icon.classList.add('fa-check', 'fa-solid');
+        textSpan.textContent = 'Copié !';
+        
+        setTimeout(() => {
+            icon.classList.remove('fa-check', 'fa-solid');
+            icon.classList.add('fa-clipboard', 'fa-solid');
+            textSpan.textContent = originalText;
+        }, 2000);
+    }).catch(err => {
+        console.error('Erreur lors de la copie', err);
+    });
+};
+
 document.addEventListener("DOMContentLoaded", function() {
     const fileInput = document.getElementById('capture_paiement');
     const submitBtn = document.getElementById('submit-btn');
+    const fileErrorMsg = document.getElementById('file-error-msg');
+    const paiementForm = document.getElementById('paiement-form');
     
     const defaultContent = document.getElementById('upload-content-default');
     const previewContent = document.getElementById('upload-content-preview');
@@ -106,11 +344,17 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function checkFormState() {
         if (fileInput.files && fileInput.files.length > 0) {
-            submitBtn.disabled = false;
-        } else {
-            submitBtn.disabled = true;
+            fileErrorMsg.classList.remove('show');
         }
     }
+
+    paiementForm.addEventListener('submit', function(e) {
+        if (!fileInput.files || fileInput.files.length === 0) {
+            e.preventDefault();
+            fileErrorMsg.classList.add('show');
+            fileErrorMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    });
 
     fileInput.addEventListener('change', function() {
         if (this.files && this.files[0]) {
