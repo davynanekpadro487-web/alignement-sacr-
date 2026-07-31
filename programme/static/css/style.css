@@ -1077,10 +1077,34 @@ footer {
 .bio-photo img { width: 100%; height: 100%; object-fit: cover; }
 
 .bio-text-header { margin-bottom: 48px; }
-.bio-text-header .kicker { color: #64748b; font-weight: 600; font-size: 0.85rem; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 36px; }
+.bio-text-header .kicker { 
+  display: inline-block;
+  background-color: rgba(22, 75, 79, 0.55);
+  color: #dfb638 !important;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-weight: 600; 
+  font-size: 0.85rem; 
+  letter-spacing: 0.2em; 
+  text-transform: uppercase; 
+  margin-bottom: 20px; 
+}
 .bio-text-header h2 { font-family: 'Cormorant Garamond', serif; color: var(--navy-deep); font-size: clamp(2rem, 4vw, 2.5rem); margin-bottom: 36px; font-weight: 600; }
 .bio-text-header hr.title-line { border: none; border-top: 1px solid rgba(22, 75, 79, 0.15); margin: 0 0 36px 0; width: 100%; }
-.bio-text-header .role { color: #c9a227; font-size: 1rem; margin-bottom: 36px; font-style: italic; font-family: 'Cormorant Garamond', serif; letter-spacing: 0.05em; }
+.bio-text-header .role { 
+  display: inline-block;
+  background-color: rgba(22, 75, 79, 0.55);
+  color: #dfb638 !important;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.95rem; 
+  margin-bottom: 24px; 
+  font-style: italic; 
+  font-family: 'Cormorant Garamond', serif; 
+  letter-spacing: 0.05em; 
+}
 .bio-text-header hr.role-line { border: none; border-top: 1px solid #718096; margin: 0 0 36px 0; width: 40px; }
 .bio-text-header .quote { font-style: italic; font-size: 1.25rem; font-family: 'Cormorant Garamond', serif; color: #4a5568; margin-bottom: 0; line-height: 1.5; }
 
@@ -1106,6 +1130,7 @@ footer {
 .bio-section-subtitle {
   font-family: 'Cormorant Garamond', serif;
   color: #164b4f;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.9); /* Subtitle in teal, give it a white glow on light bg to detach it slightly */
   font-size: 24px;
   font-style: italic;
   font-weight: 600;
