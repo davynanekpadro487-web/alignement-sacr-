@@ -14,7 +14,8 @@ SECRET_KEY = os.environ.get(
 
 # SECURITY: En production (Railway/Render), définir DEBUG=False via variable d'environnement.
 # Par défaut False pour éviter toute fuite en production.
-DEBUG = os.environ.get('DEBUG', 'False') == 'True'
+import sys
+DEBUG = os.environ.get('DEBUG', 'True' if 'runserver' in sys.argv else 'False') == 'True'
 
 # Hosts autorisés — restreint strictement aux domaines de production et locaux
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'alignement-sacr.onrender.com,localhost,127.0.0.1,127.0.0.2').split(',')
@@ -115,11 +116,14 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 # ─── Sécurité HTTPS en production ───
-if not DEBUG:
-    SECURE_SSL_REDIRECT = True
+IS_ON_RENDER = os.environ.get('RENDER') is not None
+
+SECURE_SSL_REDIRECT = IS_ON_RENDER
+SESSION_COOKIE_SECURE = IS_ON_RENDER
+CSRF_COOKIE_SECURE = IS_ON_RENDER
+
+if IS_ON_RENDER:
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-    SESSION_COOKIE_SECURE = True
-    CSRF_COOKIE_SECURE = True
     SECURE_BROWSER_XSS_FILTER = True
     SECURE_CONTENT_TYPE_NOSNIFF = True
     X_FRAME_OPTIONS = 'DENY'

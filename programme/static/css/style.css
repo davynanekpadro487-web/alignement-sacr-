@@ -880,6 +880,17 @@ footer {
     .confirmation-card {
         padding: 2rem 1.5rem;
     }
+
+    /* Allègement des overlays sur mobile (Filtre bleu/teal) */
+    .home-hero {
+        background-image: linear-gradient(180deg, rgba(22, 75, 79, 0.05) 0%, rgba(22, 75, 79, 0.15) 70%, rgba(22, 75, 79, 0.40) 100%), url('../images/hero-montagne.webp') !important;
+    }
+    .highlights { 
+        background-image: linear-gradient(rgba(22, 75, 79,0.45), rgba(22, 75, 79,0.45)), url('../images/image3.webp') !important;
+    }
+    .bio { 
+        background-image: linear-gradient(rgba(250, 240, 225, 0.60), rgba(255, 255, 255, 0.45)), url('../images/hero-montagne.webp') !important;
+    }
 }
 
 /* --- NOUVEAU DESIGN HOME --- */
@@ -895,7 +906,7 @@ footer {
 }
 
 .home-hero {
-  background-image: linear-gradient(180deg, rgba(22, 75, 79,0.05) 0%, rgba(22, 75, 79,0.2) 70%, rgba(22, 75, 79, 0.55) 100%), url('../images/hero-montagne.jpg');
+  background-image: linear-gradient(180deg, rgba(22, 75, 79,0.05) 0%, rgba(22, 75, 79,0.2) 70%, rgba(22, 75, 79, 0.55) 100%), url('../images/hero-montagne.webp');
   background-size: cover;
   background-position: center;
   color: #fff; 
@@ -994,7 +1005,7 @@ footer {
 .section-head h2 em { color: var(--azure); font-style: italic; }
 
 .benefits {
-  background-image: linear-gradient(rgba(234, 242, 253, 0.35), rgba(234, 242, 253, 0.35)), url('../images/image1.png');
+  background-image: linear-gradient(rgba(234, 242, 253, 0.35), rgba(234, 242, 253, 0.35)), url('../images/image1.webp');
   background-color: var(--azure-pale);
   background-size: cover;
   background-position: center;
@@ -1017,7 +1028,7 @@ footer {
 .benefit-item-content p { color: var(--ink-soft); font-size: 0.98rem; line-height: 1.6; margin-bottom: 0; }
 
 .highlights { 
-  background-image: linear-gradient(rgba(22, 75, 79,0.60), rgba(22, 75, 79,0.60)), url('../images/image3.png');
+  background-image: linear-gradient(rgba(22, 75, 79,0.60), rgba(22, 75, 79,0.60)), url('../images/image3.webp');
   background-size: cover;
   background-position: center;
   color: #fff; 
@@ -1050,7 +1061,7 @@ footer {
 }
 
 .bio { 
-  background-image: linear-gradient(rgba(250, 240, 225, 0.75), rgba(255, 255, 255, 0.6)), url('../images/hero-montagne.jpg');
+  background-image: linear-gradient(rgba(250, 240, 225, 0.75), rgba(255, 255, 255, 0.6)), url('../images/hero-montagne.webp');
   background-size: cover;
   background-position: center;
   padding: 80px 6vw; 
