@@ -28,7 +28,7 @@ class InscriptionAdmin(admin.ModelAdmin):
 
     def action_whatsapp(self, obj):
         if obj.statut == 'validee' and obj.telephone:
-            numero = obj.telephone.replace(' ', '').replace('+', '')
+            numero = obj.whatsapp_link_number
             lien_groupe = "https://chat.whatsapp.com/DSdV75oTwlBBTLOePGpGpU?s=cl&p=i&mlu=0&ilr=0"
             message = f"Bonjour {obj.nom_complet}, ton inscription au programme Alignement Sacré est validée ! Rejoins le groupe WhatsApp ici : {lien_groupe}"
             message_encoded = urllib.parse.quote(message)

@@ -108,6 +108,7 @@ STORAGES = {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
 }
+WHITENOISE_MAX_AGE = 31536000  # 1 an de cache pour les fichiers statiques (Cloudflare + Navigateur)
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

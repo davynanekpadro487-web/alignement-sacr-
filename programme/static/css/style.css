@@ -111,8 +111,11 @@ ul {
     font-size: 0.9rem;
     cursor: pointer;
     border: none;
-    transition: var(--transition);
+    transition: all 0.15s ease;
     text-align: center;
+}
+.btn:active {
+    transform: scale(0.97) !important;
 }
 
 .btn-gold {
@@ -142,7 +145,7 @@ ul {
 }
 
 .btn-outline-gold:active {
-    transform: translateY(0) scale(0.98);
+    transform: scale(0.97);
     box-shadow: 0 2px 10px rgba(201, 162, 39, 0.1);
 }
 
@@ -176,7 +179,7 @@ ul {
 }
 
 .btn-azure:active {
-    transform: translateY(0) scale(0.98);
+    transform: scale(0.97);
     box-shadow: 0 2px 10px rgba(201, 162, 39, 0.25);
 }
 
@@ -252,6 +255,10 @@ ul {
 .nav-links a:hover, .nav-links a.active {
     color: var(--white);
     opacity: 0.8;
+}
+.nav-links a:active {
+    transform: scale(0.95);
+    opacity: 0.6;
 }
 
 .hamburger {
@@ -1200,8 +1207,11 @@ footer {
 }
 
 .payment-method-card:hover {
-    border-color: var(--azure-soft);
-    background-color: var(--azure-pale);
+    border-color: rgba(22, 75, 79, 0.4);
+    background-color: rgba(63, 125, 224, 0.03);
+}
+.payment-method-card:active {
+    transform: scale(0.97);
 }
 
 .payment-method-card.active {

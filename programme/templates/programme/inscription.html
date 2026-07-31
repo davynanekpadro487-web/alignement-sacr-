@@ -234,10 +234,8 @@
 
         form.addEventListener('submit', function() {
             if (phoneDisplay.value) {
-                // Remove leading zeros
-                let num = phoneDisplay.value.trim().replace(/^0+/, '');
-                // Remove spaces and dashes
-                num = num.replace(/[\s-]/g, '');
+                // Remove spaces and dashes only, keep leading zero
+                let num = phoneDisplay.value.trim().replace(/[\s-]/g, '');
                 phoneHidden.value = countryCode.value + num;
             }
         });

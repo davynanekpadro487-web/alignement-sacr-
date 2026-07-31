@@ -93,7 +93,7 @@
                                     <a href="{% url 'telecharger_certificat_manuel' ins.id %}" target="_blank" class="btn btn-outline-gold" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;" title="Générer et ouvrir le PDF du certificat">
                                         <i class="fa-solid fa-file-pdf"></i> Générer le certificat
                                     </a>
-                                    <a href="https://wa.me/{{ ins.telephone|urlencode }}?text={% filter urlencode %}Bonjour {{ ins.nom_complet }}, félicitations pour avoir terminé le programme Alignement Sacré ! Ton certificat t'attend 🎉{% endfilter %}" 
+                                    <a href="https://wa.me/{{ ins.whatsapp_link_number|urlencode }}?text={% filter urlencode %}Bonjour {{ ins.nom_complet }}, félicitations pour avoir terminé le programme Alignement Sacré ! Ton certificat t'attend 🎉{% endfilter %}" 
                                        target="_blank" class="btn btn-outline-gold" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;" title="Le PDF doit être joint manuellement, WhatsApp ne permet pas l'envoi automatique de fichier via lien">
                                         <i class="fa-brands fa-whatsapp"></i> Rappel WhatsApp
                                     </a>

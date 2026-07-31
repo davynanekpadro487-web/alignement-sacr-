@@ -48,6 +48,28 @@ class Inscription(models.Model):
         restant = (date_cible - timezone.now()).days
         return max(0, restant)
 
+    @property
+    def whatsapp_link_number(self):
+        import re
+        # Garder uniquement les chiffres
+        num = re.sub(r'\D', '', str(self.telephone))
+        
+        # Corriger les doubles indicatifs (ex: utilisateur tape +225 00225 ou 225225)
+        if num.startswith('22500225'):
+            num = '225' + num[8:]
+        elif num.startswith('225225'):
+            num = '225' + num[6:]
+            
+        # Pour la Côte d'Ivoire (225), si le numéro total fait 12 chiffres (225 + 9 chiffres),
+        # c'est que le 0 initial a été supprimé par erreur par le JS ou l'utilisateur.
+        # En CI, les numéros ont 10 chiffres et commencent par 01, 05, 07.
+        if num.startswith('225') and len(num) == 12:
+            local_part = num[3:]
+            if local_part.startswith(('1', '5', '7')):
+                num = '2250' + local_part
+                
+        return num
+
     class Meta:
         verbose_name = "Inscription"
         verbose_name_plural = "Inscriptions"
