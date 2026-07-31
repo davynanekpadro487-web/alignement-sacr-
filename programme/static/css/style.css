@@ -883,13 +883,13 @@ footer {
 
     /* Allègement des overlays sur mobile (Filtre bleu/teal) */
     .home-hero {
-        background-image: linear-gradient(180deg, rgba(22, 75, 79, 0.05) 0%, rgba(22, 75, 79, 0.15) 70%, rgba(22, 75, 79, 0.40) 100%), url('../images/hero-montagne.webp') !important;
+        background-image: linear-gradient(180deg, rgba(22, 75, 79, 0.25) 0%, rgba(22, 75, 79, 0.5) 70%, rgba(22, 75, 79, 0.8) 100%), url('../images/hero-alignment-sacre.webp') !important;
     }
     .highlights { 
         background-image: linear-gradient(rgba(22, 75, 79,0.45), rgba(22, 75, 79,0.45)), url('../images/image3.webp') !important;
     }
     .bio { 
-        background-image: linear-gradient(rgba(250, 240, 225, 0.60), rgba(255, 255, 255, 0.45)), url('../images/hero-montagne.webp') !important;
+        background-image: linear-gradient(rgba(250, 240, 225, 0.60), rgba(255, 255, 255, 0.45)), url('../images/hero-alignment-sacre.webp') !important;
     }
 }
 
@@ -906,11 +906,11 @@ footer {
 }
 
 .home-hero {
-  background-image: linear-gradient(180deg, rgba(22, 75, 79,0.05) 0%, rgba(22, 75, 79,0.2) 70%, rgba(22, 75, 79, 0.55) 100%), url('../images/hero-montagne.webp');
+  background-image: linear-gradient(180deg, rgba(22, 75, 79, 0.25) 0%, rgba(22, 75, 79, 0.5) 70%, rgba(22, 75, 79, 0.8) 100%), url('../images/hero-alignment-sacre.webp');
   background-size: cover;
   background-position: center;
   color: #fff; 
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.75);
+  text-shadow: 0 4px 16px rgba(0, 0, 0, 0.9), 0 2px 4px rgba(0, 0, 0, 0.8);
   padding: min(14vw,90px) 6vw 80px; 
   text-align: center; 
   position: relative;
@@ -1061,7 +1061,7 @@ footer {
 }
 
 .bio { 
-  background-image: linear-gradient(rgba(250, 240, 225, 0.75), rgba(255, 255, 255, 0.6)), url('../images/hero-montagne.webp');
+  background-image: linear-gradient(rgba(250, 240, 225, 0.75), rgba(255, 255, 255, 0.6)), url('../images/hero-alignment-sacre.webp');
   background-size: cover;
   background-position: center;
   padding: 80px 6vw; 
