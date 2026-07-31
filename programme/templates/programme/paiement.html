@@ -321,11 +321,13 @@ window.copierNumero = function(numero, btn) {
         icon.classList.remove('fa-clipboard', 'fa-regular', 'fa-copy');
         icon.classList.add('fa-check', 'fa-solid');
         textSpan.textContent = 'Copié !';
+        btn.classList.add('copied');
         
         setTimeout(() => {
             icon.classList.remove('fa-check', 'fa-solid');
             icon.classList.add('fa-clipboard', 'fa-solid');
             textSpan.textContent = originalText;
+            btn.classList.remove('copied');
         }, 2000);
     }).catch(err => {
         console.error('Erreur lors de la copie', err);
